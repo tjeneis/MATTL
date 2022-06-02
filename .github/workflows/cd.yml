@@ -20,6 +20,9 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Generate
         run: npm run generate
 
