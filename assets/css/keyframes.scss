@@ -1,0 +1,17 @@
+@keyframes snowfall {
+  0% {
+    transform: translate3d(var(--left-ini), 0, 0);
+  }
+  100% {
+    transform: translate3d(var(--left-end), 110vh, 0);
+  }
+}
+
+@keyframes elfski {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  100% {
+      transform: translate3d(-300px, 210px, 0px);
+  }
+}

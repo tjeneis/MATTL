@@ -1,0 +1,3 @@
+<template>
+  <ScrollableMap />
+</template>
