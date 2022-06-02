@@ -5,10 +5,6 @@ import svgLoader from 'vite-svg-loader'
 export default defineNuxtConfig({
   target: 'static',
   
-  router: {
-    base: '/MATTL/'
-  },
-
   vite: {
     plugins: [
       svgLoader()
