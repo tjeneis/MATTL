@@ -9,9 +9,48 @@
 
 @keyframes elfski {
   0% {
+    transform: translate3d(0px, 0px, 0px) rotateZ(0deg);
+  }
+  100% {
+    transform: translate3d(-350px, 250px, 0) rotateZ(-5deg);
+  }
+}
+
+@keyframes walking-polar-bear {
+  0% {
     transform: translate3d(0px, 0px, 0px);
   }
   100% {
-      transform: translate3d(-300px, 210px, 0px);
+    transform: translate3d(-280px, 0, 0);
   }
+}
+
+@keyframes swing {
+  0% {
+    transform: rotate(5deg);
+  }
+  100% {
+    transform: rotate(-5deg);
+  }
+}
+
+@keyframes joystick {
+  0% {
+    transform: rotate(10deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  30% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-15deg);
+  }
+}
+
+@keyframes dash {  
+  to {
+    stroke-dashoffset: 0;
+  }  
 }

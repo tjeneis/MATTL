@@ -16,9 +16,9 @@
     "@fortawesome/free-regular-svg-icons": "^6.1.1",
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/vue-fontawesome": "3.0.0-5",
+    "@panzoom/panzoom": "^4.5.0",
     "mitt": "^3.0.0",
     "sass": "^1.52.1",
-    "sass-loader": "^13.0.0",
-    "vue-panzoom": "^1.1.6"
+    "sass-loader": "^13.0.0"
   }
 }

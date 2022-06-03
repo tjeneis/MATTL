@@ -2,10 +2,11 @@ lockfileVersion: 5.4
 
 specifiers:
   '@fortawesome/fontawesome-svg-core': ^6.1.1
-  '@fortawesome/free-brands-svg-icons': ^6.1.1
   '@fortawesome/free-regular-svg-icons': ^6.1.1
+  '@fortawesome/free-solid-svg-icons': ^6.1.1
   '@fortawesome/vue-fontawesome': 3.0.0-5
   '@nuxtjs/tailwindcss': ^5.1.2
+  '@panzoom/panzoom': ^4.5.0
   mitt: ^3.0.0
   nuxt: 3.0.0-rc.3
   sass: ^1.52.1
@@ -15,9 +16,10 @@ specifiers:
 
 dependencies:
   '@fortawesome/fontawesome-svg-core': 6.1.1
-  '@fortawesome/free-brands-svg-icons': 6.1.1
   '@fortawesome/free-regular-svg-icons': 6.1.1
+  '@fortawesome/free-solid-svg-icons': 6.1.1
   '@fortawesome/vue-fontawesome': 3.0.0-5_uvcyuhs5rmk3zrlhk2zlead5bi
+  '@panzoom/panzoom': 4.5.0
   mitt: 3.0.0
   sass: 1.52.1
   sass-loader: 13.0.0_sass@1.52.1
@@ -361,16 +363,16 @@ packages:
       '@fortawesome/fontawesome-common-types': 6.1.1
     dev: false
 
-  /@fortawesome/free-brands-svg-icons/6.1.1:
-    resolution: {integrity: sha512-mFbI/czjBZ+paUtw5NPr2IXjun5KAC8eFqh1hnxowjA4mMZxWz4GCIksq6j9ZSa6Uxj9JhjjDVEd77p2LN2Blg==}
+  /@fortawesome/free-regular-svg-icons/6.1.1:
+    resolution: {integrity: sha512-xXiW7hcpgwmWtndKPOzG+43fPH7ZjxOaoeyooptSztGmJxCAflHZxXNK0GcT0uEsR4jTGQAfGklDZE5NHoBhKg==}
     engines: {node: '>=6'}
     requiresBuild: true
     dependencies:
       '@fortawesome/fontawesome-common-types': 6.1.1
     dev: false
 
-  /@fortawesome/free-regular-svg-icons/6.1.1:
-    resolution: {integrity: sha512-xXiW7hcpgwmWtndKPOzG+43fPH7ZjxOaoeyooptSztGmJxCAflHZxXNK0GcT0uEsR4jTGQAfGklDZE5NHoBhKg==}
+  /@fortawesome/free-solid-svg-icons/6.1.1:
+    resolution: {integrity: sha512-0/5exxavOhI/D4Ovm2r3vxNojGZioPwmFrKg0ZUH69Q68uFhFPs6+dhAToh6VEQBntxPRYPuT5Cg1tpNa9JUPg==}
     engines: {node: '>=6'}
     requiresBuild: true
     dependencies:
@@ -749,6 +751,10 @@ packages:
       - vite
       - webpack
     dev: true
+
+  /@panzoom/panzoom/4.5.0:
+    resolution: {integrity: sha512-j1tmgKt4UZaCNHq78g+HrvwgEa0jPPy1EFL4Yqu+826ITr7kj8bfee0Ns9q9wd8XEP5HLHfZAii9RCVB68Jl5A==}
+    dev: false
 
   /@rollup/plugin-alias/3.1.9_rollup@2.75.4:
     resolution: {integrity: sha512-QI5fsEvm9bDzt32k39wpOwZhVzRcL5ydcffUHMyLVaVaLeC70I8TJZ17F1z1eMoLu4E/UOcH9BWVkKpIKdrfiw==}
