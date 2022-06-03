@@ -3000,11 +3000,7 @@ export default {
   },
   mounted() {
     const { viewport, map } = this.$refs
-    this.panzoom = Panzoom(map, {
-      startScale: 0.75,
-      startX: '50%',
-      startY: '50%'
-    })
+    this.panzoom = Panzoom(map)
     
     // Allow zooming with wheel
     viewport.addEventListener('wheel', (e) => {
@@ -3013,10 +3009,10 @@ export default {
   },
   methods: {
     zoomIn() {
-      this.panzoom.zoomIn();
+      this.panzoom.zoomIn()
     },
     zoomOut() {
-      this.panzoom.zoomOut();
+      this.panzoom.zoomOut()
     }
   }
 }
