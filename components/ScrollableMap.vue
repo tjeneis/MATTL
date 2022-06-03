@@ -3119,9 +3119,10 @@ export default {
     transform-box: fill-box;
     transform-origin: center 85px;
     animation-name: joystick;
-    animation-duration: 1s;
+    animation-duration: 3s;
     animation-iteration-count: infinite;
-    animation-direction: normal;
+    animation-timing-function: ease-in-out;
+    animation-direction: alternate;
   }
 
   #walking-polar-bear {
