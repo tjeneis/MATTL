@@ -1,5 +1,5 @@
 <template>
-  <div id="snow" v-if="active">
+  <div id="snow" v-show="active">
     <div class="snowflake" v-for="index in 50" :key="index" />
   </div>
 </template>

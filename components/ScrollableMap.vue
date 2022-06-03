@@ -1,8 +1,6 @@
 <template>
   <div ref="viewport" id="viewport">
-    <svg ref="map" id="map"
-      xmlns="http://www.w3.org/2000/svg" width="2560" height="1440"
-      xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 2560 1440">
+    <svg ref="map" id="map" width="2560" height="1440">
       <defs>
           <clipPath id="clippath">
               <polygon points="1931.711 360.6691 1967.1454 318.6559 2002.5797 360.6691 2002.5797 407.6535 1931.711 407.6535 1931.711 360.6691" style="fill:none;"/>
@@ -3000,7 +2998,10 @@ export default {
   },
   mounted() {
     const { viewport, map } = this.$refs
-    this.panzoom = Panzoom(map)
+    this.panzoom = Panzoom(map, {
+      startX: '-50%',
+      startY: '-50%'
+    })
     
     // Allow zooming with wheel
     viewport.addEventListener('wheel', (e) => {
