@@ -36,7 +36,7 @@ export default {
     z-index: 2;
     pointer-events: none;
     width: 100%;
-    height: 100vh;
+    height: 100%;
 
     > * {
       position: relative;
