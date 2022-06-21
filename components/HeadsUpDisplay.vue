@@ -1,7 +1,11 @@
 <template>
   <div id="hud">
-    <div class="logo rounded-br-xl inline-block p-6">
-      <logo />
+    <div class="d-flex justify-center">
+      <div class="logo">
+        <kerstival :style="{
+          width: 150 + 'px'
+        }" />
+      </div>
     </div>
 
     <!-- <div class="controls p-6">
@@ -14,11 +18,23 @@
 </template>
 
 <script>
-import logo from "~/assets/logo.svg?component";
+import { mapState } from 'vuex'
+import kerstival from '~/assets/kerstival.svg?inline'
 
 export default {
   components: {
-    logo
+    kerstival
+  },
+  async fetch({ store }) {
+    await store.dispatch('wishlist/get')
+  },
+  ,
+  computed: {
+    ...mapState({
+      wishlist: (state) => {
+        return state.wishlist.wishlist
+      }
+    })
   },
   methods: {
     toggleSnow() {
@@ -44,7 +60,7 @@ export default {
     }
 
     .logo {
-      background: #f6f8f9;
+      margin-top: 1.5rem;
     }
 
     .controls {

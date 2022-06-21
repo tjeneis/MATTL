@@ -1,0 +1,15 @@
+{
+    "eslint.workingDirectories": [{ "mode": "auto" }],
+    "eslint.validate": [
+        "javascript",
+        "vue",
+        "html"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "eslint.format.enable": true,
+    "eslint.lintTask.enable": true,
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false
+}

@@ -1,0 +1,21 @@
+// Globals
+$body-font-family: 'Akrobat', Arial, sans-serif;
+$font-weights: (
+  "thin": 600,
+  "light": 600,
+  "regular": 600,
+  "medium": 700,
+  "bold": 700,
+  "black": 800,
+);
+
+// Button
+$btn-font-sizes: (
+  "small": 0.875rem,
+  "default": 1rem,
+  "large": 1.25rem,
+  "x-large": 1.25rem,
+);
+$btn-font-weight: 700;
+$btn-letter-spacing: normal;
+$btn-text-transform: none;
