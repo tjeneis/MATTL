@@ -7,13 +7,6 @@
         }" />
       </div>
     </div>
-
-    <!-- <div class="controls p-6">
-      <button type="button" class="bg-slate-600 hover:bg-slate-700 px-5 py-2 text-sm leading-5 rounded-full font-bold text-white" @click="toggleSnow()">
-        <font-awesome-icon class="pr-1" icon="snowflake" />
-        Let it snow!
-      </button>
-    </div> -->
   </div>
 </template>
 
@@ -28,7 +21,6 @@ export default {
   async fetch({ store }) {
     await store.dispatch('wishlist/get')
   },
-  ,
   computed: {
     ...mapState({
       wishlist: (state) => {
