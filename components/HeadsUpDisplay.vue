@@ -2,9 +2,11 @@
   <div id="hud">
     <div class="d-flex justify-center">
       <div class="logo">
-        <kerstival :style="{
-          width: 150 + 'px'
-        }" />
+        <kerstival
+          :style="{
+            width: 150 + 'px'
+          }"
+        />
       </div>
     </div>
   </div>
@@ -23,16 +25,10 @@ export default {
   },
   computed: {
     ...mapState({
-      wishlist: (state) => {
-        return state.wishlist.wishlist
-      }
+      wishlist: (state) => state.wishlist.wishlist,
+      snow: (state) => state.market.snow
     })
   },
-  methods: {
-    toggleSnow() {
-      this.$bus.$emit('toggle-snow')
-    }
-  }
 }
 </script>
 

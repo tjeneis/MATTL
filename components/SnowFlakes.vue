@@ -1,23 +1,17 @@
 <template>
-  <div id="snow" v-show="active">
+  <div id="snow" v-show="snow">
     <div class="snowflake" v-for="index in 50" :key="index" />
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  data() {
-    return {
-      active: true
-    }
-  },
-  beforeMount() {
-    this.$bus.$on('toggle-snow', this.toggleSnow);
-  },
-  methods: {
-    toggleSnow() {
-      this.active = !this.active;
-    }
+  computed: {
+    ...mapState({
+      snow: (state) => state.market.snow
+    })
   }
 }
 </script>

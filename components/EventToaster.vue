@@ -1,10 +1,10 @@
 <template>
   <div id="toast-container" class="d-flex flex-row pa-8">
-    <div id="santa" class="rounded-circle elevation-6">
+    <div id="santa" class="rounded-circle">
       <santa />
     </div>
     <div id="toasts">
-      <div role="alert" class="toast white primary--text rounded-xl elevation-6" v-for="(toast, index) in toasts" :key="index" v-html="`This is message ${index + 1}`" />
+      <div role="alert" class="toast white rounded-xl" v-for="(toast, index) in toasts" :key="index" v-html="toast.message" />
     </div>
   </div>
 </template>
@@ -18,7 +18,20 @@ export default {
   },
   data() {
     return {
-      toasts: Array(Math.floor(Math.random() * 10))
+      toasts: [
+        {
+          message: 'This is a simple message'
+        },
+        {
+          message: 'This is a <strong>strong</strong> message'
+        },
+        {
+          message: 'I also support emojis 🤯'
+        },
+        {
+          message: 'This is another very longgggggggggg <i>italic</i> message'
+        }
+      ]
     }
   },
   created() {
@@ -50,6 +63,7 @@ export default {
       width: 48px;
       height: 48px;
       background: #000F4B;
+      box-shadow: 0 2px 4px 0 rgb(0 0 0 / 8%);
 
       svg {
         transform: translate(-13px, -2px);
@@ -68,7 +82,8 @@ export default {
         position: relative;
         padding: 4px 12px;
         margin: 0 auto 12px 0;
-        font-weight: 700;
+        font-size: 0.825rem;
+        box-shadow: 0 2px 4px 0 rgb(0 0 0 / 8%);
 
         &:first-child {
           &:after {
@@ -78,10 +93,6 @@ export default {
             left: 0;
             transform: translateY(50%);
           }
-        }
-
-        &:not(:first-child) {
-          opacity: 0.5;
         }
       }
     }

@@ -1,5 +1,27 @@
 export const state = () => ({
-  wishlist: [],
+  wishlist: [
+    {
+      id: '',
+      title: 'Square SQ1 - Orange',
+      brand: 'Fujifilm Instax',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas consectetur, ligula et bibendum tempor, nulla ante pretium nunc, id laoreet mi sapien in tortor. Proin sollicitudin efficitur nisl nec euismod. Donec euismod nisi eu arcu faucibus, a faucibus nunc dapibus.',
+      points: 3000,
+    },
+    {
+      id: '',
+      title: 'Stofzuiger Ecosenzo Plus',
+      brand: 'Bestron',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas consectetur, ligula et bibendum tempor, nulla ante pretium nunc, id laoreet mi sapien in tortor. Proin sollicitudin efficitur nisl nec euismod. Donec euismod nisi eu arcu faucibus, a faucibus nunc dapibus.',
+      points: 2000
+    },
+    {
+      id: '',
+      title: 'Cirkelzaag',
+      brand: 'Fujifilm Instax',
+      description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas consectetur, ligula et bibendum tempor, nulla ante pretium nunc, id laoreet mi sapien in tortor. Proin sollicitudin efficitur nisl nec euismod. Donec euismod nisi eu arcu faucibus, a faucibus nunc dapibus.',
+      points: 3000,
+    }
+  ],
 })
 
 export const mutations = {

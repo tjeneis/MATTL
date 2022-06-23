@@ -2,7 +2,8 @@
   <v-app>
     <HeadsUpDisplay />
     <EventToaster />
-    <!-- <SnowFlakes /> -->
+    <SnowFlakes />
+    <Wishlist />
     <ProductGallery />
 
     <v-main>

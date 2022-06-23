@@ -2,16 +2,19 @@
   <div ref="viewport" id="viewport">
     <div ref="map" id="map" >
       <div id="markers">
-        <div
+        <v-avatar
           v-for="(marker, index) in markers"
           :key="index"
+          color="primary"
           class="marker"
           :style="{
             left: marker.x + 'px',
             top: marker.y + 'px'
           }"
           @click="clickHandler(index)"
-        />
+        >
+          <v-icon dark>fa-location-dot</v-icon>
+        </v-avatar>
       </div>
       <svg width="2560" height="1440">
         <defs>
@@ -2990,12 +2993,19 @@
       </svg>
     </div>
 
-    <div id="map-controls" class="d-flex flex-row white--text pa-8">
-      <v-btn fab light small @click="zoomOut">
-        <v-icon>fa-minus</v-icon>
+    <div id="map-controls" class="d-flex flex-row align-center pa-8">
+      <v-btn @click="$bus.$emit('toggle-wishlist')" rounded>
+        <v-icon left :size="18">$vuetify.icons.heart</v-icon>
+        {{ wishlist.length }} favorieten
       </v-btn>
-      <v-btn class="ml-3" fab light small @click="zoomIn">
-        <v-icon>fa-plus</v-icon>
+      <v-btn class="ml-3" fab small @click="letItSnow(!snow)">
+        <v-icon :size="18">$vuetify.icons.snow</v-icon>
+      </v-btn>
+      <v-btn class="ml-3" fab small @click="zoomOut">
+        <v-icon :size="18">fa-minus</v-icon>
+      </v-btn>
+      <v-btn class="ml-3" fab small @click="zoomIn">
+        <v-icon :size="18">fa-plus</v-icon>
       </v-btn>
     </div>
   </div>
@@ -3003,6 +3013,7 @@
 
 <script>
 import Panzoom from '@panzoom/panzoom'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   data() {
@@ -3014,6 +3025,12 @@ export default {
         { x: 1370, y: 1150 },
       ]
     }
+  },
+  computed: {
+    ...mapState({
+      wishlist: (state) => state.wishlist.wishlist,
+      snow: (state) => state.market.snow
+    })
   },
   mounted() {
     const { viewport, map } = this.$refs
@@ -3028,6 +3045,9 @@ export default {
     })
   },
   methods: {
+    ...mapActions('market', [
+      'letItSnow'
+    ]),
     zoomIn() {
       this.panzoom.zoomIn()
     },
@@ -3057,7 +3077,7 @@ export default {
 
 <style lang="scss">
   #viewport {
-    background: #3C3B56;
+    background: #C7E4F0;
     margin: 0;
     width: 100%;
     height: 100vh;
@@ -3074,25 +3094,8 @@ export default {
 
     .marker {
       position: absolute;
-      width: 48px;
-      height: 48px;
-      display: block;
-      border-radius: 50%;
-      background: #000F4B;
-      box-shadow: 0 0 0 rgba(0,15,75,0.4);
       animation: pulse 2s infinite;
       cursor: pointer;
-
-      &:before {
-        content: '?';
-        display: flex;
-        color: white;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-        font-size: 1.5rem;
-        font-weight: 700;
-      }
     }
   }
 
@@ -3101,6 +3104,14 @@ export default {
     bottom: 0;
     right: 0;
     z-index: 1;
+
+    .v-btn {
+      box-shadow: 0 2px 4px 0 rgb(0 0 0 / 8%);
+
+      &__content {
+        line-height: inherit;
+      }
+    }
   }
 
   .BD{fill:#a8622f}

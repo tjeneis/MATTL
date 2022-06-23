@@ -14,7 +14,8 @@ export default defineNuxtConfig({
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' },
+      { rel: 'stylesheet', href: '//use.typekit.net/wvv0oba.css' }
     ]
   },
 
@@ -26,8 +27,9 @@ export default defineNuxtConfig({
   plugins: [
     '~/plugins/eventBus.js',
     '~/plugins/repositories.js',
+    '~/plugins/filters.js',
     { src: '~/plugins/vue-countdown.js', ssr: false },
-    { src: '~/plugins/vue-masonry.js', ssr: false }
+    { src: '~/plugins/vue-masonry.js', ssr: false },
   ],
 
   components: true,
@@ -38,7 +40,8 @@ export default defineNuxtConfig({
   ],
 
   modules: [
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/i18n',
   ],
 
   i18n: {
@@ -46,10 +49,6 @@ export default defineNuxtConfig({
       {
         code: 'nl',
         file: 'nl.js'
-      },
-      {
-        code: 'fr',
-        file: 'fr.js'
       },
       {
         code: 'en',
@@ -63,22 +62,12 @@ export default defineNuxtConfig({
 
   vuetify: {
     customVariables: ['~/assets/css/variables.scss'],
+    optionsPath: '~/vuetify.options.js',
     defaultAssets: {
       font: false,
       icons: 'fa'
     },
     treeShake: true,
-    theme: {
-      options: {
-        customProperties: true
-      },
-      dark: true,
-      themes: {
-        dark: {
-          primary: '#3C3B56',
-        }
-      }
-    }
   },
 
   axios: {

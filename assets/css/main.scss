@@ -151,3 +151,56 @@
   font-weight: 400;
   font-style: normal
 }
+
+.v-card {
+  &--product {
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 8%) !important;
+    transition: box-shadow cubic-bezier(0.19, 1, 0.22, 1) 1.2s;
+
+    &:hover {
+      box-shadow: 0 4px 8px 0 rgb(0 0 0 / 15%) !important;
+
+      .v-image {
+        .v-image__image {
+          background-size: 105%;
+        }
+      }
+    }
+
+    .v-image {
+      .v-image__image {
+        background-size: 100%;
+        transition: background-size cubic-bezier(0.19, 1, 0.22, 1) 1.2s;
+      }
+
+      .v-icon {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+    }
+
+    .v-card__brand {
+      text-transform: uppercase;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: #474A4D;
+      opacity: 0.5;
+    }
+
+    .v-card__title {
+      font-size: 1rem;
+      padding: 0;
+      color: #252525;
+    }
+
+    .v-card__points {
+      color: var(--v-primary-base);
+
+      span {
+        font-size: 1.75rem;
+      }
+    }
+  }
+}
