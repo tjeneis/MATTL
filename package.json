@@ -21,6 +21,7 @@
     "nuxt-edge": "latest",
     "three": "^0.141.0",
     "vue": "^2.6.14",
+    "vue-flag-icon": "^2.1.0",
     "vue-masonry": "^0.15.0",
     "vue-server-renderer": "^2.6.14",
     "vue-template-compiler": "^2.6.14",

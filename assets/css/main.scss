@@ -159,6 +159,7 @@
 .v-card {
   &--product {
     box-shadow: 0 2px 4px 0 rgb(0 0 0 / 8%) !important;
+    padding: 20px;
     transition: box-shadow cubic-bezier(0.19, 1, 0.22, 1) 1.2s;
 
     &:hover {
@@ -176,12 +177,12 @@
         background-size: 100%;
         transition: background-size cubic-bezier(0.19, 1, 0.22, 1) 1.2s;
       }
+    }
 
-      .v-icon {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-      }
+    .v-card__wishlist {
+      position: absolute !important;
+      top: 20px;
+      right: 20px;
     }
 
     .v-card__brand {

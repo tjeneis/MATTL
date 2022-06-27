@@ -2,7 +2,15 @@
 <template>
   <div id="weather-controls">
     <div class="d-flex flex-row align-center pa-8">
-      <v-btn color="primary" dark fab small @click="letItSnow(!snow)">
+      <LocaleSwitch />
+      <v-btn
+        class="ml-3"
+        color="primary"
+        dark
+        fab
+        small
+        @click="letItSnow(!snow)"
+      >
         <v-icon :size="18">fa-snowflake</v-icon>
       </v-btn>
       <v-btn
@@ -21,8 +29,10 @@
 
 <script>
 import { mapActions, mapState } from "vuex";
+import LocaleSwitch from "../LocaleSwitch.vue";
 
 export default {
+  components: { LocaleSwitch },
   computed: {
     ...mapState({
       snow: (state) => state.market.snow,

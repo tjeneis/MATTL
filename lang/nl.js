@@ -9,5 +9,7 @@ export default {
   delete: 'Verwijderen',
   favorites: '{count} favorieten',
   close: 'sluiten',
-  visitWebshop: 'Ga naar de webshop om te bestellen'
+  visitWebshop: 'Ga naar de webshop om te bestellen',
+  nl: 'Nederlands',
+  en: 'English',
 }

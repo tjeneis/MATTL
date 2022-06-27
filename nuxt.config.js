@@ -31,6 +31,7 @@ export default defineNuxtConfig({
     '~/plugins/filters.js',
     '~/plugins/mock-service-worker.js',
     { src: '~/plugins/vue-countdown.js', ssr: false },
+    { src: '~/plugins/vue-flag-icon.js', ssr: false },
     { src: '~/plugins/vue-masonry.js', ssr: false },
   ],
 
@@ -51,11 +52,13 @@ export default defineNuxtConfig({
     locales: [
       {
         code: 'nl',
-        file: 'nl.js'
+        file: 'nl.js',
+        iso: 'nl'
       },
       {
         code: 'en',
-        file: 'en.js'
+        file: 'en.js',
+        iso: 'gb'
       }
     ],
     lazy: true,

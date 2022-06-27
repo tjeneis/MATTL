@@ -13,7 +13,7 @@
           </h3>
         </v-col>
         <v-spacer />
-        <v-col cols="auto">
+        <v-col cols="auto" v-if="$vuetify.breakpoint.mdAndUp">
           <points />
         </v-col>
         <v-col cols="auto">
@@ -42,9 +42,9 @@
         maxWidth: 'unset',
       }"
     >
+      <v-divider />
       <v-slide-x-transition group tag="v-list">
         <template v-for="(product, index) in wishlist">
-          <v-divider :key="index" />
           <v-list-item class="px-0 py-3" :key="product.id">
             <v-list-item-avatar :size="48" tile>
               <v-img :src="product.image" />
@@ -70,6 +70,7 @@
               </v-btn>
             </v-list-item-action>
           </v-list-item>
+          <v-divider :key="index" />
         </template>
       </v-slide-x-transition>
 
