@@ -25,9 +25,11 @@ export default defineNuxtConfig({
   ],
 
   plugins: [
+    '~/plugins/error-handler.js',
     '~/plugins/eventBus.js',
     '~/plugins/repositories.js',
     '~/plugins/filters.js',
+    '~/plugins/mock-service-worker.js',
     { src: '~/plugins/vue-countdown.js', ssr: false },
     { src: '~/plugins/vue-masonry.js', ssr: false },
   ],
@@ -42,6 +44,7 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/i18n',
+    '@nuxtjs/toast',
   ],
 
   i18n: {
@@ -72,6 +75,12 @@ export default defineNuxtConfig({
 
   axios: {
     baseURL: process.env.API_BASE_URL
+  },
+
+  toast: {
+    position: 'bottom-center',
+    duration: 3000,
+    iconPack: 'fontawesome'
   },
 
   build: {

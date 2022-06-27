@@ -1,6 +1,6 @@
 import Dropdown from "~/components/icons/Dropdown.vue";
-import Heart from "~/components/icons/Heart.vue";
-import Snow from "~/components/icons/Snow.vue";
+import HeartFilled from "~/components/icons/HeartFilled.vue";
+import HeartOutline from "~/components/icons/HeartOutline.vue";
 
 export default {
   theme: {
@@ -21,16 +21,16 @@ export default {
           name: 'dropdown'
         }
       },
-      heart: {
-        component: Heart,
+      heartFilled: {
+        component: HeartFilled,
         props: {
-          name: 'heart'
+          name: 'heartFilled'
         }
       },
-      snow: {
-        component: Snow,
+      heart: {
+        component: HeartOutline,
         props: {
-          name: 'snow'
+          name: 'heart'
         }
       }
     }

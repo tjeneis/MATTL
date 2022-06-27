@@ -4,7 +4,7 @@
       <div class="logo">
         <kerstival
           :style="{
-            width: 150 + 'px'
+            width: 150 + 'px',
           }"
         />
       </div>
@@ -13,48 +13,48 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import kerstival from '~/assets/kerstival.svg?inline'
+import { mapState } from "vuex";
+import kerstival from "~/assets/kerstival.svg?inline";
 
 export default {
   components: {
-    kerstival
+    kerstival,
   },
   async fetch({ store }) {
-    await store.dispatch('wishlist/get')
+    await store.dispatch("wishlist/get");
   },
   computed: {
     ...mapState({
       wishlist: (state) => state.wishlist.wishlist,
-      snow: (state) => state.market.snow
-    })
+      snow: (state) => state.market.snow,
+    }),
   },
-}
+};
 </script>
 
 <style lang="scss">
-  #hud {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
-    pointer-events: none;
-    width: 100%;
-    height: 100%;
+#hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
 
-    > * {
-      position: relative;
-      pointer-events: auto;
-    }
-
-    .logo {
-      margin-top: 1.5rem;
-    }
-
-    .controls {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-    }
+  > * {
+    position: relative;
+    pointer-events: auto;
   }
+
+  .logo {
+    margin-top: 1.5rem;
+  }
+
+  .controls {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+}
 </style>

@@ -17,6 +17,7 @@ module.exports = {
   ],
   rules: {
     'vue/no-v-html': 0,
+    'vue/html-quotes': ['single'],
     'vue/attributes-order': ['error', {
       order: [
         'DEFINITION',
