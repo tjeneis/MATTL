@@ -1,38 +1,26 @@
 <template>
   <div @keyup.space="jump()" tabindex="0" style="position: relative">
-    <!-- <header>
+    <header>
       <h1>{{ $t("flappyBird") }}</h1>
       <div class="score-container">
         <div id="highscore">{{ `${$t("highscore")}: ${highscore}` }}</div>
         <div id="score">{{ `${$t("score")}: ${score}` }}</div>
       </div>
-    </header> -->
+    </header>
 
     <div v-if="!playing" class="game-overlay" @click="playing = true">
       {{ $t("startGame") }}
     </div>
     <canvas ref="canvas" id="canvas" />
-
-    <rope-elf
-      :style="{
-        position: 'absolute',
-        width: '500px',
-        transform: 'translateX(465px)',
-      }"
-    />
   </div>
 </template>
 
 <script>
-import ropeElf from "~/assets/rope-elf.svg?inline";
 import sprite from "~/assets/games/flappy-bird/sprite.png";
 
 export default {
   name: "FlappyBird",
   layout: "game",
-  components: {
-    ropeElf,
-  },
   data() {
     return {
       img: undefined,
