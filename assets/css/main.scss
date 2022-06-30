@@ -210,6 +210,12 @@
   }
 }
 
+.v-btn {
+  &__content {
+    line-height: inherit !important;
+  }
+}
+
 .toasted {
   font-family: $body-font-family;
 

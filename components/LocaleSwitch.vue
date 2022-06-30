@@ -1,5 +1,5 @@
 <template>
-  <v-menu offset-y>
+  <v-menu bottom offset-y open-on-hover transition="slide-y-transition">
     <template #activator="{ on, attrs }">
       <v-btn v-bind="attrs" icon v-on="on">
         <flag :iso="locale.iso" />

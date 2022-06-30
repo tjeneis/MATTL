@@ -12,4 +12,12 @@ export default {
   visitWebshop: 'Visit webshop to order',
   nl: 'Nederlands',
   en: 'English',
+  openJournal: 'Open feed',
+  journal: 'Festival feed',
+  highscore: 'Highscore',
+  score: 'Score',
+  startGame: 'Click to start',
+  flappyBird: 'Flappy Bird',
+  stickHero: 'Stick Hero',
+  backToMap: "Back to map",
 }

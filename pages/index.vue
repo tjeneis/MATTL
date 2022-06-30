@@ -3,7 +3,7 @@
     <WeatherController />
     <WeatherSnow v-if="snow" />
     <WeatherSmoke v-if="smoke" />
-    <ScrollableMap />
+    <Map />
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <HeadsUpDisplay />
-    <EventToaster />
+    <JournalTicker />
     <Wishlist />
     <ProductGallery />
 

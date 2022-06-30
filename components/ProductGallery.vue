@@ -22,7 +22,7 @@
         <v-col cols="auto" v-if="$vuetify.breakpoint.mdAndUp">
           <points class="pr-4" />
         </v-col>
-        <v-col cols="auto" order-md="2">
+        <v-col cols="auto" order-md="3">
           <v-tooltip left>
             <template v-slot:activator="{ on, attrs }">
               <v-btn
@@ -41,6 +41,9 @@
           </v-tooltip>
         </v-col>
         <v-col cols="12" md="auto" order-md="1">
+          <InputRangeSlider />
+        </v-col>
+        <v-col cols="12" md="auto" order-md="2">
           <v-select
             v-model="sort"
             hide-details
@@ -76,21 +79,31 @@
               flat
               height="100%"
               light
+              :ripple="false"
               @click="clickHandler(product)"
             >
               <v-img :src="product.image" @load="$redrawVueMasonry()" />
 
-              <v-icon
-                class="v-card__wishlist"
-                :color="isSelected(product.id) ? 'primary' : 'default'"
-                :size="24"
-              >
-                {{
-                  isSelected(product.id)
-                    ? "$vuetify.icons.heartFilled"
-                    : "$vuetify.icons.heart"
-                }}
-              </v-icon>
+              <v-fade-transition>
+                <v-icon
+                  v-if="isSelected(product.id)"
+                  class="v-card__wishlist"
+                  color="primary"
+                  key="is-selected"
+                  :size="24"
+                >
+                  $vuetify.icons.heartAlt
+                </v-icon>
+                <v-icon
+                  v-else
+                  key="is-not-selected"
+                  class="v-card__wishlist"
+                  :size="24"
+                >
+                  $vuetify.icons.heart
+                </v-icon>
+              </v-fade-transition>
+
               <div class="pt-5">
                 <div class="v-card__brand">{{ product.brand }}</div>
                 <div class="v-card__title">{{ product.title }}</div>
@@ -184,3 +197,24 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+div::v-deep {
+  .v-text-field {
+    input,
+    .v-select__selection.v-select__selection--comma {
+      color: #9b9b9b !important;
+    }
+
+    &.v-select.v-input--is-dirty {
+      input {
+        display: none;
+      }
+    }
+
+    .v-select__selection {
+      max-width: none;
+    }
+  }
+}
+</style>

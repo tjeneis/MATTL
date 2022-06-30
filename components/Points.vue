@@ -5,7 +5,12 @@
     >
     <div>
       <div class="text">{{ $t("pointsRemaining") }}</div>
-      <div class="points">{{ points | formatNumber }} {{ $t("points") }}</div>
+      <v-scale-transition leave-absolute>
+        <div class="points" :key="`points-${points}`">
+          {{ points | formatNumber }}
+          {{ $t("points") }}
+        </div>
+      </v-scale-transition>
     </div>
   </div>
 </template>

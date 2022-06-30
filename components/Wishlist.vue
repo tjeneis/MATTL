@@ -43,36 +43,39 @@
       }"
     >
       <v-divider />
-      <v-slide-x-transition group tag="v-list">
-        <template v-for="(product, index) in wishlist">
-          <v-list-item class="px-0 py-3" :key="product.id">
-            <v-list-item-avatar :size="48" tile>
-              <v-img :src="product.image" />
-            </v-list-item-avatar>
-            <v-list-item-content>
-              <v-list-item-title v-html="product.title" />
-              <v-list-item-subtitle
-                >{{ product.points | formatNumber }}
-                {{ $t("points") }}</v-list-item-subtitle
-              >
-            </v-list-item-content>
-            <v-list-item-action>
-              <v-btn
-                class="font-weight-regular"
-                color="#9B9B9B"
-                text
-                rounded
-                small
-                @click="removeFromWishlist(product.id)"
-              >
-                <v-icon left>fa-trash-can</v-icon>
-                {{ $t("delete") }}
-              </v-btn>
-            </v-list-item-action>
-          </v-list-item>
-          <v-divider :key="index" />
-        </template>
-      </v-slide-x-transition>
+
+      <v-list>
+        <v-slide-x-transition group>
+          <template v-for="(product, index) in wishlist">
+            <v-list-item class="px-0 py-3" :key="product.id">
+              <v-list-item-avatar :size="48" tile>
+                <v-img contain :src="product.image" />
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title v-html="product.title" />
+                <v-list-item-subtitle
+                  >{{ product.points | formatNumber }}
+                  {{ $t("points") }}</v-list-item-subtitle
+                >
+              </v-list-item-content>
+              <v-list-item-action>
+                <v-btn
+                  class="font-weight-regular"
+                  color="#9B9B9B"
+                  text
+                  rounded
+                  small
+                  @click="removeFromWishlist(product.id)"
+                >
+                  <v-icon left>fa-trash-can</v-icon>
+                  {{ $t("delete") }}
+                </v-btn>
+              </v-list-item-action>
+            </v-list-item>
+            <v-divider :key="index" />
+          </template>
+        </v-slide-x-transition>
+      </v-list>
 
       <v-btn
         block

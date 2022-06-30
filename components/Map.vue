@@ -2,19 +2,34 @@
   <div ref="viewport" id="viewport">
     <div ref="map" id="map">
       <div id="markers">
-        <v-avatar
-          v-for="(marker, index) in markers"
-          :key="index"
-          color="primary"
-          class="marker"
+        <template v-for="(marker, index) in markers">
+          <v-tooltip top>
+            <template #activator="{ on, attrs }">
+              <v-avatar
+                v-bind="attrs"
+                color="primary"
+                class="marker"
+                :style="{
+                  left: marker.x + 'px',
+                  top: marker.y + 'px',
+                }"
+                v-on="on"
+                @click="clickHandler(marker, index)"
+              >
+                <v-icon dark>{{ marker.icon }}</v-icon>
+              </v-avatar>
+            </template>
+            <span>{{ $t(marker.tooltip) }}</span>
+          </v-tooltip>
+        </template>
+      </div>
+      <div id="layer-1">
+        <HotAirBalloon
           :style="{
-            left: marker.x + 'px',
-            top: marker.y + 'px',
+            top: 500,
+            left: 1150,
           }"
-          @click="clickHandler(index)"
-        >
-          <v-icon dark>fa-location-dot</v-icon>
-        </v-avatar>
+        />
       </div>
       <svg
         id="eilanden"
@@ -210,17 +225,16 @@
 
 <script>
 import Panzoom from "@panzoom/panzoom";
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
+import markers from "~/data/markers";
+import HotAirBalloon from "./stalls/HotAirBalloon.vue";
 
 export default {
+  components: { HotAirBalloon },
   data() {
     return {
       panzoom: undefined,
-      markers: [
-        { x: 720, y: 450, route: "" },
-        { x: 220, y: 600 },
-        { x: 1370, y: 1150 },
-      ],
+      markers,
     };
   },
   computed: {
@@ -233,7 +247,6 @@ export default {
     this.panzoom = Panzoom(map, {
       minScale: 0.75,
     });
-
     // Allow zooming with wheel
     viewport.addEventListener("wheel", (e) => {
       this.panzoom.zoomWithWheel(e);
@@ -246,9 +259,9 @@ export default {
     zoomOut() {
       this.panzoom.zoomOut();
     },
-    clickHandler(index) {
+    clickHandler(marker, index) {
+      if (marker.route) return this.$router.push(marker.route);
       let category;
-
       switch (index) {
         case 0:
           category = "Werkplaats";
@@ -260,7 +273,6 @@ export default {
           category = "Beauty";
           break;
       }
-
       this.$bus.$emit("toggle-product-gallery", category);
     },
   },
@@ -281,6 +293,13 @@ export default {
   svg {
     contain: paint;
   }
+}
+
+#layer-1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
 }
 
 #markers {

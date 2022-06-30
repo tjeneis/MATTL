@@ -1,7 +1,6 @@
 import { defineNuxtConfig } from '@nuxt/bridge'
 
 export default defineNuxtConfig({
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'Markt | Tintelingen',
     htmlAttrs: {
@@ -32,6 +31,7 @@ export default defineNuxtConfig({
     '~/plugins/mock-service-worker.js',
     { src: '~/plugins/vue-countdown.js', ssr: false },
     { src: '~/plugins/vue-flag-icon.js', ssr: false },
+    { src: '~/plugins/vue-marquee-text-component.js', ssr: false },
     { src: '~/plugins/vue-masonry.js', ssr: false },
   ],
 
@@ -62,7 +62,7 @@ export default defineNuxtConfig({
       }
     ],
     lazy: true,
-    langDir: 'lang/',
+    langDir: 'locales/',
     defaultLocale: 'nl'
   },
 
@@ -76,6 +76,10 @@ export default defineNuxtConfig({
     treeShake: true,
   },
 
+  router: {
+    prefetchLinks: false
+  },
+
   axios: {
     baseURL: process.env.API_BASE_URL
   },
@@ -86,6 +90,5 @@ export default defineNuxtConfig({
     iconPack: 'fontawesome'
   },
 
-  build: {
-  }
+  build: {},
 })
