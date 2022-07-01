@@ -1,13 +1,5 @@
 <template>
-  <div @keyup.space="jump()" tabindex="0" style="position: relative">
-    <header>
-      <h1>{{ $t("flappyBird") }}</h1>
-      <div class="score-container">
-        <div id="highscore">{{ `${$t("highscore")}: ${highscore}` }}</div>
-        <div id="score">{{ `${$t("score")}: ${score}` }}</div>
-      </div>
-    </header>
-
+  <div class="d-flex align-center justify-center fill-height">
     <div v-if="!playing" class="game-overlay" @click="playing = true">
       {{ $t("startGame") }}
     </div>
@@ -16,14 +8,16 @@
 </template>
 
 <script>
-import sprite from "~/assets/games/flappy-bird/sprite.png";
+import gamesMixin from "~/mixins/games";
+import flappyBirdSprite from "~/assets/games/flappy-bird/sprite.png";
 
 export default {
   name: "FlappyBird",
   layout: "game",
+  mixins: [gamesMixin],
   data() {
     return {
-      img: undefined,
+      sprite: undefined,
       gravity: 0.5,
       speed: 6.2,
       jumpSize: -10,
@@ -33,42 +27,53 @@ export default {
       pipeGap: 270,
       flight: 0,
       flyHeight: 0,
-      playing: false,
-      highscore: 0,
-      score: 0,
     };
   },
   computed: {
-    canvas() {
-      return this.$refs?.canvas;
-    },
-    ctx() {
-      return this.canvas?.getContext("2d");
-    },
     cTenth() {
-      return this.canvas?.width / 10;
+      return this.canvas?.width / 2 - this.birdSize[0] / 2;
     },
   },
   mounted() {
-    // Set canvas size
-    this.canvas.width = 431;
-    this.canvas.height = 768;
+    // Bind event listeners
+    window.addEventListener("click", (e) => {
+      e.preventDefault();
+      const { jumpSize } = this;
+      if (this.playing) this.flight = jumpSize;
+    });
 
-    // Setup game
-    this.setup();
+    // Load the game
+    this.resetGame();
 
-    // Load image
-    this.img = new Image();
-    this.img.src = sprite;
-    this.img.onLoad = this.render();
+    // Load sprite
+    this.sprite = new Image();
+    this.sprite.src = flappyBirdSprite;
+    this.sprite.onLoad = this.render();
   },
   methods: {
-    setup() {
+    resetGame() {
       const { pipeWidth, pipeGap, birdSize, jumpSize } = this;
 
       // Set initial flyHeight (middle of screen - size of the bird)
       this.flight = jumpSize;
       this.flyHeight = canvas.height / 2 - birdSize[1] / 2;
+
+      // Reset game progress
+      this.sceneOffset = 0;
+      this.score = 0;
+
+      // Setup trees
+      this.trees = [];
+      this.generateTree();
+      this.generateTree();
+      this.generateTree();
+      this.generateTree();
+      this.generateTree();
+      this.generateTree();
+      this.generateTree();
+      this.generateTree();
+      this.generateTree();
+      this.generateTree();
 
       // Setup first 3 pipes
       this.pipes = Array(3)
@@ -83,7 +88,7 @@ export default {
       const {
         canvas,
         ctx,
-        img,
+        sprite,
         cTenth,
         playing,
         gravity,
@@ -98,31 +103,7 @@ export default {
       // make the pipe and bird moving
       index++;
 
-      // background first part
-      ctx.drawImage(
-        img,
-        0,
-        0,
-        canvas.width,
-        canvas.height,
-        -((index * (speed / 2)) % canvas.width) + canvas.width,
-        0,
-        canvas.width,
-        canvas.height
-      );
-
-      // background second part
-      ctx.drawImage(
-        img,
-        0,
-        0,
-        canvas.width,
-        canvas.height,
-        -(index * (speed / 2)) % canvas.width,
-        0,
-        canvas.width,
-        canvas.height
-      );
+      this.drawBackground();
 
       // pipe display
       if (playing) {
@@ -132,7 +113,7 @@ export default {
 
           // top pipe
           ctx.drawImage(
-            img,
+            sprite,
             432,
             588 - pipe[1],
             pipeWidth,
@@ -145,7 +126,7 @@ export default {
 
           // bottom pipe
           ctx.drawImage(
-            img,
+            sprite,
             432 + pipeWidth,
             108,
             pipeWidth,
@@ -182,7 +163,7 @@ export default {
             ].every((elem) => elem)
           ) {
             this.playing = false;
-            this.setup();
+            this.resetGame();
           }
         });
       }
@@ -190,7 +171,7 @@ export default {
       // draw bird
       if (playing) {
         ctx.drawImage(
-          img,
+          sprite,
           432,
           Math.floor((index % 9) / 3) * birdSize[1],
           ...birdSize,
@@ -205,7 +186,7 @@ export default {
         );
       } else {
         ctx.drawImage(
-          img,
+          sprite,
           432,
           Math.floor((index % 9) / 3) * birdSize[1],
           ...birdSize,
@@ -221,11 +202,6 @@ export default {
     },
     start() {
       this.playing = true;
-    },
-    jump() {
-      const { jumpSize } = this;
-
-      if (this.playing) this.flight = jumpSize;
     },
     pipeLoc() {
       const { canvas, pipeWidth, pipeGap } = this;

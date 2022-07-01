@@ -20,4 +20,5 @@ export default {
   flappyBird: 'Flappy Bird',
   stickHero: 'Stick Hero',
   backToMap: "Back to map",
+  viewHighscores: "View highscores",
 }

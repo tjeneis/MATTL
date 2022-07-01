@@ -209,19 +209,3 @@
     }
   }
 }
-
-.v-btn {
-  &__content {
-    line-height: inherit !important;
-  }
-}
-
-.toasted {
-  font-family: $body-font-family;
-
-  &-container {
-    &.bottom-center {
-      bottom: 1.5rem !important;
-    }
-  }
-}

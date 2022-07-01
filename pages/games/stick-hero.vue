@@ -11,28 +11,19 @@
 </template>
 
 <script>
-// Extend the base functionality of JavaScript
-Array.prototype.last = function () {
-  return this[this.length - 1];
-};
-
-// A sinus function that acceps degrees instead of radians
-Math.sinus = function (degree) {
-  return Math.sin((degree / 180) * Math.PI);
-};
+import gamesMixin from "~/mixins/games";
 
 let lastTimestamp; // The timestamp of the previous requestAnimationFrame cycle
 
 export default {
   name: "StickHero",
   layout: "game",
+  mixins: [gamesMixin],
   data() {
     return {
       phase: "waiting", // waiting | stretching | turning | walking | transitioning | falling
-      score: 0,
       platforms: [],
       sticks: [],
-      trees: [],
       hero: {
         x: undefined, // Changes when moving forward
         y: undefined, // Only changes when falling
@@ -40,23 +31,11 @@ export default {
         height: 30, // 40
         distanceFromEdge: 10, // While waiting
       },
-      sceneOffset: undefined, // Moves the whole game
       canvasHeight: 375,
       canvasWidth: 375,
       platformHeight: 100,
       paddingX: 100, // The waiting position of the hero in from the original canvas size
       perfectAreaSize: 10,
-      backgroundSpeedMultiplier: 0.2, // The background moves slower than the hero
-      hill1: {
-        baseHeight: 100,
-        amplitude: 10,
-        stretch: 1,
-      },
-      hill2: {
-        baseHeight: 70,
-        amplitude: 20,
-        stretch: 0.5,
-      },
       speed: {
         stretching: 4, // Milliseconds it takes to draw a pixel
         turning: 4, // Milliseconds it takes to turn a degree
@@ -65,14 +44,6 @@ export default {
         falling: 2,
       },
     };
-  },
-  computed: {
-    canvas() {
-      return this.$refs?.canvas;
-    },
-    ctx() {
-      return this.canvas?.getContext("2d");
-    },
   },
   mounted() {
     // If space was pressed restart the game
@@ -99,23 +70,11 @@ export default {
       }
     });
 
-    window.addEventListener("resize", () => {
-      this.canvas.width = window.innerWidth;
-      this.canvas.height = window.innerHeight;
-      this.draw();
-    });
-
-    window.requestAnimationFrame(this.animate);
-
-    this.$refs.restart.addEventListener("click", (e) => {
+    this.$refs?.restart?.addEventListener("click", (e) => {
       e.preventDefault();
       this.resetGame();
       this.$refs.restart.style.display = "none";
     });
-
-    // Make the Canvas full screen
-    this.canvas.width = window.innerWidth;
-    this.canvas.height = window.innerHeight;
 
     // Load the game
     this.resetGame();
@@ -166,24 +125,6 @@ export default {
       this.hero.y = 0;
 
       this.draw();
-    },
-    generateTree() {
-      const minimumGap = 30;
-      const maximumGap = 150;
-
-      // X coordinate of the right edge of the furthest tree
-      const lastTree = this.trees[this.trees.length - 1];
-      let furthestX = lastTree ? lastTree.x : 0;
-
-      const x =
-        furthestX +
-        minimumGap +
-        Math.floor(Math.random() * (maximumGap - minimumGap));
-
-      const treeColors = ["#6D8821", "#8FAC34", "#98B333"];
-      const color = treeColors[Math.floor(Math.random() * 3)];
-
-      this.trees.push({ x, color });
     },
     generatePlatform() {
       const minimumGap = 40;
@@ -365,7 +306,7 @@ export default {
     drawPlatforms() {
       this.platforms.forEach(({ x, w }) => {
         // Draw platform
-        this.ctx.fillStyle = "black";
+        this.ctx.fillStyle = "white";
         this.ctx.fillRect(
           x,
           this.canvasHeight - this.platformHeight,
@@ -375,7 +316,7 @@ export default {
 
         // Draw perfect area only if hero did not yet reach the platform
         if (this.sticks.last().x < x) {
-          this.ctx.fillStyle = "red";
+          this.ctx.fillStyle = "#30393f";
           this.ctx.fillRect(
             x + w / 2 - this.perfectAreaSize / 2,
             this.canvasHeight - this.platformHeight,
@@ -471,97 +412,15 @@ export default {
         // Draw stick
         this.ctx.beginPath();
         this.ctx.lineWidth = 2;
+        this.ctx.lineCap = "round";
         this.ctx.moveTo(0, 0);
         this.ctx.lineTo(0, -stick.length);
+        this.ctx.strokeStyle = "white";
         this.ctx.stroke();
 
         // Restore transformations
         this.ctx.restore();
       });
-    },
-    drawBackground() {
-      // Draw sky
-      var gradient = this.ctx.createLinearGradient(0, 0, 0, window.innerHeight);
-      gradient.addColorStop(0, "#BBD691");
-      gradient.addColorStop(1, "#FEF1E1");
-      this.ctx.fillStyle = gradient;
-      this.ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-
-      // Draw hills
-      this.drawHill(
-        this.hill1.baseHeight,
-        this.hill1.amplitude,
-        this.hill1.stretch,
-        "#95C629"
-      );
-      this.drawHill(
-        this.hill2.baseHeight,
-        this.hill2.amplitude,
-        this.hill2.stretch,
-        "#659F1C"
-      );
-
-      // Draw trees
-      this.trees.forEach((tree) => this.drawTree(tree.x, tree.color));
-    },
-    // A hill is a shape under a stretched out sinus wave
-    drawHill(baseHeight, amplitude, stretch, color) {
-      this.ctx.beginPath();
-      this.ctx.moveTo(0, window.innerHeight);
-      this.ctx.lineTo(0, this.getHillY(0, baseHeight, amplitude, stretch));
-      for (let i = 0; i < window.innerWidth; i++) {
-        this.ctx.lineTo(i, this.getHillY(i, baseHeight, amplitude, stretch));
-      }
-      this.ctx.lineTo(window.innerWidth, window.innerHeight);
-      this.ctx.fillStyle = color;
-      this.ctx.fill();
-    },
-    drawTree(x, color) {
-      this.ctx.save();
-      this.ctx.translate(
-        (-this.sceneOffset * this.backgroundSpeedMultiplier + x) *
-          this.hill1.stretch,
-        this.getTreeY(x, this.hill1.baseHeight, this.hill1.amplitude)
-      );
-
-      const treeTrunkHeight = 5;
-      const treeTrunkWidth = 2;
-      const treeCrownHeight = 25;
-      const treeCrownWidth = 10;
-
-      // Draw trunk
-      this.ctx.fillStyle = "#7D833C";
-      this.ctx.fillRect(
-        -treeTrunkWidth / 2,
-        -treeTrunkHeight,
-        treeTrunkWidth,
-        treeTrunkHeight
-      );
-
-      // Draw crown
-      this.ctx.beginPath();
-      this.ctx.moveTo(-treeCrownWidth / 2, -treeTrunkHeight);
-      this.ctx.lineTo(0, -(treeTrunkHeight + treeCrownHeight));
-      this.ctx.lineTo(treeCrownWidth / 2, -treeTrunkHeight);
-      this.ctx.fillStyle = color;
-      this.ctx.fill();
-
-      this.ctx.restore();
-    },
-    getHillY(windowX, baseHeight, amplitude, stretch) {
-      const sineBaseY = window.innerHeight - baseHeight;
-      return (
-        Math.sinus(
-          (this.sceneOffset * this.backgroundSpeedMultiplier + windowX) *
-            stretch
-        ) *
-          amplitude +
-        sineBaseY
-      );
-    },
-    getTreeY(x, baseHeight, amplitude) {
-      const sineBaseY = window.innerHeight - baseHeight;
-      return Math.sinus(x) * amplitude + sineBaseY;
     },
   },
 };

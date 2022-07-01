@@ -1,11 +1,17 @@
 <template>
   <v-app>
     <v-app-bar color="transparent" fixed flat>
-      <v-row>
+      <v-row dense>
         <v-col cols="auto">
           <v-btn color="primary" depressed large rounded to="/">
-            <v-icon left>fa-long-arrow-left</v-icon>
+            <v-icon left :size="16">fa-long-arrow-left</v-icon>
             {{ $t("backToMap") }}
+          </v-btn>
+        </v-col>
+        <v-col cols="auto">
+          <v-btn color="secondary" depressed large rounded>
+            <v-icon left :size="16">fa-trophy</v-icon>
+            {{ $t("viewHighscores") }}
           </v-btn>
         </v-col>
       </v-row>

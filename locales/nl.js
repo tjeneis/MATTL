@@ -20,4 +20,5 @@ export default {
   flappyBird: 'Flappy Bird',
   stickHero: 'Stick Hero',
   backToMap: "Terug naar kaart",
+  viewHighscores: "Bekijk highscores",
 }
