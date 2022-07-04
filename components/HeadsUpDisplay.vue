@@ -13,38 +13,38 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import kerstival from "~/assets/kerstival.svg?inline";
+import { mapState } from 'vuex'
+import kerstival from '~/assets/kerstival.svg?inline'
 
 export default {
   components: {
-    kerstival,
+    kerstival
   },
-  async fetch({ store }) {
-    await store.dispatch("wishlist/get");
+  async fetch ({ store }) {
+    await store.dispatch('wishlist/get')
   },
   computed: {
     ...mapState({
-      wishlist: (state) => state.wishlist.wishlist,
-      snow: (state) => state.market.snow,
-    }),
-  },
-};
+      wishlist: state => state.wishlist.wishlist,
+      snow: state => state.market.snow
+    })
+  }
+}
 </script>
 
 <style lang="scss">
 #hud {
+  height: 100%;
+  left: 0;
+  pointer-events: none;
   position: absolute;
   top: 0;
-  left: 0;
-  z-index: 2;
-  pointer-events: none;
   width: 100%;
-  height: 100%;
+  z-index: 2;
 
   > * {
-    position: relative;
     pointer-events: auto;
+    position: relative;
   }
 
   .logo {
@@ -52,8 +52,8 @@ export default {
   }
 
   .controls {
-    position: absolute;
     bottom: 0;
+    position: absolute;
     right: 0;
   }
 }
