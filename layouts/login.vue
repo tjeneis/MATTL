@@ -1,15 +1,16 @@
 <template>
   <v-app>
-    <HeadsUpDisplay />
-    <JournalTicker />
-    <WishList />
-    <ProductGallery />
-
-    <v-main>
+    <v-main class="d-flex align-center">
       <Nuxt />
     </v-main>
   </v-app>
 </template>
+
+<script>
+export default {
+  name: 'LoginLayout'
+}
+</script>
 
 <style lang="scss">
 html {
@@ -24,5 +25,9 @@ body {
   padding: 0;
   position: relative;
   width: 100%;
+}
+
+.v-application {
+  background: var(--v-primary-base) !important;
 }
 </style>

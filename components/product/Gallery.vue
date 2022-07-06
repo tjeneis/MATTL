@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer
+    :key="categoryId"
     v-model="active"
-    :key="category"
     absolute
     color="#F4F9FA"
     right
@@ -16,23 +16,32 @@
     >
       <v-row align="center">
         <v-col cols="auto">
-          <h3 class="text-h4 font-weight-bold">{{ category }}</h3>
+          <h3
+            class="text-h4 font-weight-bold"
+            v-html="category?.languages[$i18n.locale].name"
+          />
         </v-col>
         <v-spacer />
-        <v-col cols="auto" v-if="$vuetify.breakpoint.mdAndUp">
-          <points class="pr-4" />
+        <v-col
+          v-if="$vuetify.breakpoint.mdAndUp"
+          cols="auto"
+        >
+          <PointsWidget class="pr-4" />
         </v-col>
-        <v-col cols="auto" order-md="3">
+        <v-col
+          cols="auto"
+          order-md="3"
+        >
           <v-tooltip left>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn
                 color="#F4F9FA"
                 :elevation="0"
                 fab
                 small
-                @click="active = false"
                 v-bind="attrs"
                 v-on="on"
+                @click="active = false"
               >
                 <v-icon>fa-times</v-icon>
               </v-btn>
@@ -40,18 +49,26 @@
             <span class="text-capitalize">{{ $t("close") }}</span>
           </v-tooltip>
         </v-col>
-        <v-col cols="12" md="auto" order-md="1">
+        <v-col
+          cols="12"
+          md="auto"
+          order-md="1"
+        >
           <InputRangeSlider />
         </v-col>
-        <v-col cols="12" md="auto" order-md="2">
+        <v-col
+          cols="12"
+          md="auto"
+          order-md="2"
+        >
           <v-select
             v-model="sort"
             hide-details
             :items="sorting"
-            outlined
             :menu-props="{
               offsetY: true,
             }"
+            outlined
             :placeholder="$t('sortOn')"
             return-object
           />
@@ -67,29 +84,32 @@
       <client-only>
         <v-row v-masonry>
           <v-col
+            v-for="(product, index) in catalog"
+            :key="index"
             v-masonry-tile
             class="item"
-            :key="index"
-            v-for="(product, index) in products"
             cols="12"
             md="3"
           >
             <v-card
               class="v-card--product"
-              flat
+              :elevation="0"
               height="100%"
               light
               :ripple="false"
               @click="clickHandler(product)"
             >
-              <v-img :src="product.image" @load="$redrawVueMasonry()" />
+              <v-img
+                :src="product.image"
+                @load="$redrawVueMasonry()"
+              />
 
               <v-fade-transition>
                 <v-icon
-                  v-if="isSelected(product.id)"
+                  v-if="isSelected(product.product_id)"
+                  key="is-selected"
                   class="v-card__wishlist"
                   color="primary"
-                  key="is-selected"
                   :size="24"
                 >
                   $vuetify.icons.heartAlt
@@ -105,10 +125,14 @@
               </v-fade-transition>
 
               <div class="pt-5">
-                <div class="v-card__brand">{{ product.brand }}</div>
-                <div class="v-card__title">{{ product.title }}</div>
+                <div class="v-card__brand">
+                  {{ product.model }}
+                </div>
+                <div class="v-card__title">
+                  {{ product.languages[$i18n.locale].name }}
+                </div>
                 <div class="v-card__points">
-                  <span>{{ product.points | formatNumber }}</span>
+                  <span>{{ (product.points && 0) | formatNumber }}</span>
                   {{ $t("points") }}
                 </div>
               </div>
@@ -121,81 +145,77 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState } from 'vuex'
 
 export default {
-  data() {
+  data () {
     return {
       active: false,
-      category: undefined,
-      products: [],
+      categoryId: undefined,
       sort: undefined,
       sorting: [
         {
-          text: this.$t("name"),
-          sort: "name",
-          order: "ASC",
+          text: this.$t('name'),
+          sort: 'name',
+          order: 'ASC'
         },
         {
-          text: `${this.$t("points")} ${this.$t("ascending")}`,
-          sort: "points",
-          order: "ASC",
+          text: `${this.$t('points')} ${this.$t('ascending')}`,
+          sort: 'points',
+          order: 'ASC'
         },
         {
-          text: `${this.$t("points")} ${this.$t("descending")}`,
-          sort: "points",
-          order: "DESC",
-        },
-      ],
-    };
+          text: `${this.$t('points')} ${this.$t('descending')}`,
+          sort: 'points',
+          order: 'DESC'
+        }
+      ]
+    }
   },
   computed: {
     ...mapState({
-      wishlist: (state) => state.wishlist.wishlist,
+      catalog: state => state.products.catalog,
+      categories: state => state.market.categories,
+      wishlist: state => state.wishlist.wishlist
     }),
-    width() {
-      const { smAndDown } = this.$vuetify.breakpoint;
-
-      if (smAndDown) return "100%";
-      else return "75%";
+    category () {
+      return this.categories?.find(c => c.category_id === this.categoryId)
     },
+    width () {
+      const { smAndDown } = this.$vuetify.breakpoint
+
+      if (smAndDown) { return '100%' } else { return '75%' }
+    }
   },
-  beforeMount() {
-    this.$bus.$on("toggle-product-gallery", (payload) => {
-      this.category = payload;
-      this.toggleGallery();
-      this.$forceUpdate();
-    });
+  beforeMount () {
+    this.$bus.$on('toggle-product-gallery', (categoryId) => {
+      this.categoryId = categoryId
+      this.toggleGallery()
+      this.$forceUpdate()
+    })
   },
-  mounted() {
-    if (typeof this.$redrawVueMasonry === "function") {
-      this.$redrawVueMasonry();
+  mounted () {
+    if (typeof this.$redrawVueMasonry === 'function') {
+      this.$redrawVueMasonry()
     }
   },
   methods: {
     ...mapActions({
-      getProducts: "products/get",
-      addToWishlist: "wishlist/add",
-      removeFromWishlist: "wishlist/remove",
+      addToWishlist: 'wishlist/add',
+      removeFromWishlist: 'wishlist/remove'
     }),
-    toggleGallery() {
-      this.active = !this.active;
-      if (this.active) {
-        this.getProducts().then((res) => {
-          this.products = res;
-        });
-      }
+    toggleGallery () {
+      this.active = !this.active
     },
-    clickHandler(product) {
-      const { id } = product;
-      if (this.isSelected(id)) this.removeFromWishlist(id);
-      else this.addToWishlist(id);
+    clickHandler (product) {
+      const { product_id: id } = product
+      if (this.isSelected(id)) { this.removeFromWishlist(id) } else { this.addToWishlist(id) }
     },
-    isSelected(productId) {
-      return this.wishlist.map((p) => p.id).includes(productId);
-    },
-  },
-};
+    isSelected (productId) {
+      return this.wishlist?.map(p => p).includes(productId)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

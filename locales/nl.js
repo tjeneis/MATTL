@@ -19,6 +19,11 @@ export default {
   startGame: 'Klik om te starten',
   flappyBird: 'Flappy Bird',
   stickHero: 'Stick Hero',
-  backToMap: "Terug naar kaart",
-  viewHighscores: "Bekijk highscores",
+  backToMap: 'Terug naar kaart',
+  viewHighScores: 'Bekijk highscores',
+  highScores: 'Highscores',
+  username: 'Inlogcode',
+  password: 'Wachtwoord',
+  login: 'Inloggen',
+  multiplier: 'Dubbele punten'
 }

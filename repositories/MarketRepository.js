@@ -1,13 +1,10 @@
-const resource = '/market';
+const resource = '/store'
 
-export default ($axios) => ({
-  theme() {
-    return $axios.get(`${resource}/theme`);
+export default $axios => ({
+  getTheme (storeId) {
+    return $axios.get(`${resource}/${storeId}/theme`)
   },
-  catalog() {
-    return $axios.get(`${resource}/catalog`);
-  },
-  info() {
-    return $axios.get(`${resource}/info`);
+  getCategories (storeId) {
+    return $axios.get(`${resource}/${storeId}/categories`)
   }
-});
+})

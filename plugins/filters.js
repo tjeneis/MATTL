@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import * as numeral from 'numeral';
+import Vue from 'vue'
+import * as numeral from 'numeral'
 
 // Set locale
 numeral.register('locale', 'nl-nl', {
@@ -14,17 +14,17 @@ numeral.register('locale', 'nl-nl', {
     trillion: 'bln'
   },
   ordinal: function (number) {
-    var remainder = number % 100;
-    return (number !== 0 && remainder <= 1 || remainder === 8 || remainder >= 20) ? 'ste' : 'de';
+    const remainder = number % 100
+    return (number !== 0 && (remainder <= 1 || remainder === 8 || remainder >= 20)) ? 'ste' : 'de'
   },
   currency: {
     symbol: '€ '
   }
-});
-numeral.locale('nl-nl');
+})
+numeral.locale('nl-nl')
 
 export default defineNuxtPlugin(() => {
   Vue.filter('formatNumber', (value, format) => {
-    return numeral(value).format(format);
+    return numeral(value).format(format)
   })
 })

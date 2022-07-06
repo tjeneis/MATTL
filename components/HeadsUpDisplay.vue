@@ -20,9 +20,6 @@ export default {
   components: {
     kerstival
   },
-  async fetch ({ store }) {
-    await store.dispatch('wishlist/get')
-  },
   computed: {
     ...mapState({
       wishlist: state => state.wishlist.wishlist,
@@ -42,7 +39,7 @@ export default {
   width: 100%;
   z-index: 2;
 
-  > * {
+  > div > * {
     pointer-events: auto;
     position: relative;
   }

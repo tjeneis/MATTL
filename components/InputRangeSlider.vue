@@ -12,24 +12,27 @@
         hide-details
         outlined
         readonly
-        v-on="on"
         :value="`${$root.$options.filters.formatNumber(
           range[0]
         )} - ${$root.$options.filters.formatNumber(range[1])} ${$t('points')}`"
+        v-on="on"
         @click:append="on.click"
       />
     </template>
     <v-card class="pa-3">
-      <v-row class="ma-0" dense>
+      <v-row
+        class="ma-0"
+        dense
+      >
         <v-col cols="auto">
           <v-text-field
             v-model="range[0]"
             dense
             hide-details
             outlined
-            type="number"
-            style="width: 100px"
             :step="500"
+            style="width: 100px"
+            type="number"
           />
         </v-col>
         <v-col cols="auto">
@@ -38,18 +41,18 @@
             dense
             hide-details
             outlined
-            type="number"
-            style="width: 100px"
             :step="500"
+            style="width: 100px"
+            type="number"
           />
         </v-col>
       </v-row>
 
       <v-range-slider
         v-model="range"
+        hide-details
         :max="max"
         :min="min"
-        hide-details
         :step="500"
       />
     </v-card>
@@ -58,12 +61,12 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       min: 0,
       max: 100000,
-      range: [0, 100000],
-    };
-  },
-};
+      range: [0, 100000]
+    }
+  }
+}
 </script>

@@ -10,14 +10,20 @@ module.exports = {
   },
   extends: [
     '@nuxtjs',
-    'plugin:nuxt/recommended',
-    'plugin:vue/recommended'
+    'plugin:nuxt/recommended'
   ],
   plugins: [
   ],
   rules: {
     'vue/no-v-html': 0,
-    'vue/html-quotes': ['single'],
+    'vue/max-attributes-per-line': ['error', {
+      singleline: {
+        max: 1
+      },
+      multiline: {
+        max: 1
+      }
+    }],
     'vue/attributes-order': ['error', {
       order: [
         'DEFINITION',

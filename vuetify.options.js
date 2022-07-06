@@ -1,5 +1,5 @@
-import Dropdown from "~/components/icons/Dropdown.vue";
-import Heart from "~/components/icons/Heart.vue";
+import Dropdown from '~/components/icon/Dropdown.vue'
+import Heart from '~/components/icon/Heart.vue'
 
 export default {
   theme: {
@@ -8,7 +8,7 @@ export default {
     },
     themes: {
       light: {
-        primary: '#f0251f',
+        primary: '#e3001b'
       }
     }
   },
@@ -18,14 +18,14 @@ export default {
         component: Dropdown
       },
       heart: {
-        component: Heart,
+        component: Heart
       },
       heartAlt: {
         component: Heart,
         props: {
-          outlined: false,
+          outlined: false
         }
       }
     }
   }
-};
+}

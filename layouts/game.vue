@@ -1,18 +1,30 @@
 <template>
   <v-app>
-    <v-app-bar color="transparent" fixed flat>
+    <v-app-bar
+      color="transparent"
+      :elevation="0"
+      fixed
+    >
       <v-row dense>
         <v-col cols="auto">
-          <v-btn color="primary" depressed large rounded to="/">
-            <v-icon left :size="16">fa-long-arrow-left</v-icon>
+          <v-btn
+            color="primary"
+            depressed
+            large
+            rounded
+            to="/"
+          >
+            <v-icon
+              left
+              :size="16"
+            >
+              fa-long-arrow-left
+            </v-icon>
             {{ $t("backToMap") }}
           </v-btn>
         </v-col>
         <v-col cols="auto">
-          <v-btn color="secondary" depressed large rounded>
-            <v-icon left :size="16">fa-trophy</v-icon>
-            {{ $t("viewHighscores") }}
-          </v-btn>
+          <GameHighScores />
         </v-col>
       </v-row>
     </v-app-bar>
@@ -27,42 +39,70 @@
 
 <script>
 export default {
-  name: "GameLayout",
-};
+  name: 'GameLayout'
+}
 </script>
 
-
-<style lang="scss">
+<style lang="scss" scoped>
 html {
   height: -webkit-fill-available;
 }
 
 body {
-  margin: 0;
-  padding: 0;
   height: 100vh;
   height: -webkit-fill-available;
-  width: 100%;
+  margin: 0;
   overflow: hidden;
+  padding: 0;
   position: relative;
+  width: 100%;
 }
 
 .v-application {
   background: #2c597a !important;
 }
+</style>
 
-.game-overlay {
+<style lang="scss">
+#score {
+  font-size: 2em;
+  font-weight: 900;
   position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  display: flex;
+  right: 30px;
+  top: 30px;
+}
+
+#restart {
+  background-color: red;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.2em;
+  font-weight: 700;
+  height: 120px;
+  position: absolute;
+  width: 120px;
+}
+
+#multiplier {
+  position: absolute;
+  transition: opacity 2s;
+}
+
+#start {
   align-items: center;
-  justify-content: center;
-  z-index: 1;
   background: rgba(44, 89, 122, 0.5);
   color: white;
   cursor: pointer;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1;
 }
 </style>

@@ -1,5 +1,11 @@
 <template>
-  <v-navigation-drawer v-model="active" absolute right temporary :width="width">
+  <v-navigation-drawer
+    v-model="active"
+    absolute
+    right
+    temporary
+    :width="width"
+  >
     <v-container
       class="pa-8 pb-0 white"
       :style="{
@@ -13,20 +19,23 @@
           </h3>
         </v-col>
         <v-spacer />
-        <v-col cols="auto" v-if="$vuetify.breakpoint.mdAndUp">
-          <points />
+        <v-col
+          v-if="$vuetify.breakpoint.mdAndUp"
+          cols="auto"
+        >
+          <PointsWidget />
         </v-col>
         <v-col cols="auto">
           <v-tooltip left>
-            <template v-slot:activator="{ on, attrs }">
+            <template #activator="{ on, attrs }">
               <v-btn
                 color="#F4F9FA"
                 :elevation="0"
                 fab
                 small
-                @click="active = false"
                 v-bind="attrs"
                 v-on="on"
+                @click="active = false"
               >
                 <v-icon>fa-times</v-icon>
               </v-btn>
@@ -46,28 +55,39 @@
 
       <v-list>
         <v-slide-x-transition group>
-          <template v-for="(product, index) in wishlist">
-            <v-list-item class="px-0 py-3" :key="product.id">
-              <v-list-item-avatar :size="48" tile>
-                <v-img contain :src="product.image" />
+          <template v-for="(id, index) in wishlist">
+            <v-list-item
+              :key="id"
+              class="px-0 py-3"
+            >
+              <v-list-item-avatar
+                :size="48"
+                tile
+              >
+                <v-img
+                  contain
+                  :src="product(id)?.image"
+                />
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-title v-html="product.title" />
-                <v-list-item-subtitle
-                  >{{ product.points | formatNumber }}
-                  {{ $t("points") }}</v-list-item-subtitle
-                >
+                <v-list-item-title v-html="product(id)?.languages[$i18n.locale].name" />
+                <v-list-item-subtitle>
+                  {{ (product.points && 0) | formatNumber }}
+                  {{ $t("points") }}
+                </v-list-item-subtitle>
               </v-list-item-content>
               <v-list-item-action>
                 <v-btn
                   class="font-weight-regular"
                   color="#9B9B9B"
-                  text
                   rounded
                   small
-                  @click="removeFromWishlist(product.id)"
+                  text
+                  @click="removeFromWishlist(id)"
                 >
-                  <v-icon left>fa-trash-can</v-icon>
+                  <v-icon left>
+                    fa-trash-can
+                  </v-icon>
                   {{ $t("delete") }}
                 </v-btn>
               </v-list-item-action>
@@ -92,46 +112,44 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState } from 'vuex'
 
 export default {
-  data() {
+  data () {
     return {
-      active: false,
-    };
+      active: false
+    }
   },
   computed: {
     ...mapState({
-      wishlist: (state) => state.wishlist.wishlist,
+      catalog: state => state.products.catalog,
+      wishlist: state => state.wishlist.wishlist
     }),
-    width() {
-      const { mdAndUp, smAndDown } = this.$vuetify.breakpoint;
+    width () {
+      const { mdAndUp, smAndDown } = this.$vuetify.breakpoint
 
-      if (mdAndUp) return "50%";
-      else if (smAndDown) return "100%";
-      else return "75%";
-    },
+      if (mdAndUp) { return '50%' } else if (smAndDown) { return '100%' } else { return '75%' }
+    }
   },
-  beforeMount() {
-    this.$bus.$on("toggle-wishlist", (payload) => {
-      this.key = payload;
-      this.toggleWishlist();
-      this.$forceUpdate();
-    });
-  },
-  mounted() {
-    this.getWishlist();
+  beforeMount () {
+    this.$bus.$on('toggle-wishlist', (payload) => {
+      this.key = payload
+      this.toggleWishlist()
+      this.$forceUpdate()
+    })
   },
   methods: {
     ...mapActions({
-      getWishlist: "wishlist/get",
-      removeFromWishlist: "wishlist/remove",
+      removeFromWishlist: 'wishlist/remove'
     }),
-    toggleWishlist() {
-      this.active = !this.active;
+    toggleWishlist () {
+      this.active = !this.active
     },
-  },
-};
+    product (id) {
+      return this.catalog?.find(p => p.product_id === id)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -144,8 +162,8 @@ export default {
 
 .v-list-item {
   &__title {
-    font-size: 1.125rem;
     color: #252525;
+    font-size: 1.125rem;
   }
 
   &__subtitle {

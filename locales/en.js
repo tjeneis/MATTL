@@ -19,6 +19,11 @@ export default {
   startGame: 'Click to start',
   flappyBird: 'Flappy Bird',
   stickHero: 'Stick Hero',
-  backToMap: "Back to map",
-  viewHighscores: "View highscores",
+  backToMap: 'Back to map',
+  viewHighScores: 'View highscores',
+  highScores: 'Highscores',
+  username: 'Login code',
+  password: 'Password',
+  login: 'Login',
+  multiplier: 'Double points'
 }
